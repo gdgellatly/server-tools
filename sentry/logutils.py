@@ -2,8 +2,10 @@
 # Copyright 2016-2017 Versada <https://versada.eu/>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from future import standard_library
+standard_library.install_aliases()
 import logging
-import urlparse
+import urllib.parse
 
 import odoo.http
 
@@ -24,7 +26,7 @@ def get_request_info(request):
 
     Heavily based on flask integration for Sentry: https://git.io/vP4i9.
     '''
-    urlparts = urlparse.urlsplit(request.url)
+    urlparts = urllib.parse.urlsplit(request.url)
     return {
         'url': '%s://%s%s' % (urlparts.scheme, urlparts.netloc, urlparts.path),
         'query_string': urlparts.query,

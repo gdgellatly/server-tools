@@ -3,6 +3,7 @@
 # Copyright 2015-2016 See __openerp__.py for Authors
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from builtins import str
 from openerp import models, api, exceptions, _
 import logging
 
@@ -17,7 +18,7 @@ class IrActionsReport(models.Model):
             from unidecode import unidecode
         except ImportError:
             _logger.debug('Can not `import unidecode`.')
-        text = unidecode(unicode(text))
+        text = unidecode(str(text))
         text.lower()
         return text.encode('iso-8859-1')
 

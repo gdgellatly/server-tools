@@ -2,6 +2,8 @@
 # © 2015-2016 Therp BV <http://therp.nl>
 # © 2015 Grupo ESOC Ingeniería de Servicios, S.L.U. - Jairo Llopis
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from future import standard_library
+standard_library.install_aliases()
 import json
 import logging
 import os
@@ -9,7 +11,7 @@ try:
     import psutil
 except ImportError:  # pragma: no cover
     psutil = None
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from openerp import api, models
 from openerp.tools.config import config
 
@@ -71,8 +73,8 @@ class DeadMansSwitchClient(models.AbstractModel):
             'dead_mans_switch_client.send_timeout', SEND_TIMEOUT)
         data = self._get_data()
         logger.debug('sending %s', data)
-        urllib2.urlopen(
-            urllib2.Request(
+        urllib.request.urlopen(
+            urllib.request.Request(
                 url,
                 json.dumps({
                     'jsonrpc': '2.0',

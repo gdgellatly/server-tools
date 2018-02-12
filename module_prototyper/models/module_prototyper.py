@@ -334,7 +334,7 @@ class ModulePrototyper(models.Model):
 
         relations = {}
         field_descriptions = self._field_descriptions or {}
-        for field in field_descriptions.itervalues():
+        for field in list(field_descriptions.values()):
             model = field.get('model_id')
             relations.setdefault(model, []).append(field)
             # dependencies.add(model.id)
@@ -344,8 +344,8 @@ class ModulePrototyper(models.Model):
         #     'dependencies': [(6, 0, [id_ for id_ in dependencies])]
         # })
 
-        files.append(self.generate_models_init_details(relations.keys()))
-        for model, custom_fields in relations.iteritems():
+        files.append(self.generate_models_init_details(list(relations.keys())))
+        for model, custom_fields in list(relations.items()):
             files.append(self.generate_model_details(model, custom_fields))
 
         return files
@@ -370,7 +370,7 @@ class ModulePrototyper(models.Model):
             relations.setdefault(view.model, []).append(view)
 
         views_details = []
-        for model, views in relations.iteritems():
+        for model, views in list(relations.items()):
             filepath = 'views/%s_view.xml' % (
                 self.friendly_name(self.unprefix(model)),
             )
@@ -397,7 +397,7 @@ class ModulePrototyper(models.Model):
             relations.setdefault(model, []).append(menu)
 
         menus_details = []
-        for model_name, menus in relations.iteritems():
+        for model_name, menus in list(relations.items()):
             model_name = self.unprefix(model_name)
             filepath = 'views/%s_menus.xml' % (
                 self.friendly_name(model_name),
@@ -452,7 +452,7 @@ class ModulePrototyper(models.Model):
         for prefix, model_data, file_list in [
                 ('data', data, self._data_files),
                 ('demo', demo, self._demo_files)]:
-            for model_name, records in model_data.iteritems():
+            for model_name, records in list(model_data.items()):
                 fname = self.friendly_name(self.unprefix(model_name))
                 filename = '%s/%s.xml' % (prefix, fname)
                 self._data_files.append(filename)
@@ -506,7 +506,7 @@ class ModulePrototyper(models.Model):
                 continue
 
             if isinstance(attrs, dict):
-                for key, val in attrs.iteritems():
+                for key, val in list(attrs.items()):
                     if isinstance(val, (list, tuple)):
                         attrs[key] = cls.fixup_domain(val)
                 elem.attrib["attrs"] = repr(attrs)

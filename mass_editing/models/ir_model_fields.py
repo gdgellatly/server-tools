@@ -2,6 +2,8 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd. (support@serpentcs.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from builtins import map
+from past.builtins import basestring
 from odoo import api, models
 
 
@@ -16,7 +18,7 @@ class IrModelFields(models.Model):
                     isinstance(domain[2], basestring) and
                     list(domain[2][1:-1])):
                 model_domain += [('model_id', 'in',
-                                  map(int, domain[2][1:-1].split(',')))]
+                                  list(map(int, domain[2][1:-1].split(','))))]
             else:
                 model_domain.append(domain)
         return super(IrModelFields, self).search(model_domain, offset=offset,

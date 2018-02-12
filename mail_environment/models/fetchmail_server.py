@@ -52,7 +52,7 @@ class FetchmailServer(models.Model):
             if serv_config.has_section(custom_section_name):
                 config_vals.update(serv_config.items(custom_section_name))
 
-            for key, to_type in key_types.iteritems():
+            for key, to_type in list(key_types.items()):
                 if config_vals.get(key):
                     config_vals[key] = to_type(config_vals[key])
 

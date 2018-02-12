@@ -2,6 +2,7 @@
 # © 2015 ABF OSIELL <http://osiell.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from builtins import object
 from odoo import models, fields, api, modules, _, sql_db
 
 FIELDS_BLACKLIST = [
@@ -248,7 +249,7 @@ class AuditlogRule(models.Model):
             # Old API
             if args and isinstance(args[0], sql_db.Cursor):
                 cr, uid, ids = args[0], args[1], args[2]
-                if isinstance(ids, (int, long)):
+                if isinstance(ids, int):
                     ids = [ids]
                 # If the call came from auditlog itself, skip logging:
                 # avoid logs on `read` produced by auditlog during internal
@@ -307,7 +308,7 @@ class AuditlogRule(models.Model):
             # afterwards as it could not represent the real state
             # of the data in the database
             vals2 = dict(vals)
-            old_vals2 = dict.fromkeys(vals2.keys(), False)
+            old_vals2 = dict.fromkeys(list(vals2.keys()), False)
             old_values = dict((id_, old_vals2) for id_ in self.ids)
             new_values = dict((id_, vals2) for id_ in self.ids)
             result = write_fast.origin(self, vals, **kwargs)
@@ -382,7 +383,7 @@ class AuditlogRule(models.Model):
                 self._create_log_line_on_create(log, diff.added(), new_values)
             elif method is 'read':
                 self._create_log_line_on_read(
-                    log, old_values.get(res_id, EMPTY_DICT).keys(), old_values)
+                    log, list(old_values.get(res_id, EMPTY_DICT).keys()), old_values)
             elif method is 'write':
                 self._create_log_line_on_write(
                     log, diff.changed(), old_values, new_values)

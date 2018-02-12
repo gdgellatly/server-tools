@@ -104,7 +104,7 @@ class ResLang(models.Model):
             template = separator.join(defaults)
 
         # Convert str to datetime objects
-        if isinstance(value, (str, unicode)):
+        if isinstance(value, str):
             try:
                 value = fields.Datetime.from_string(value)
             except ValueError:

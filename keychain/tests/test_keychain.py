@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from builtins import str
 from odoo.tests.common import TransactionCase
 from odoo.tools.config import config
 from odoo.exceptions import ValidationError

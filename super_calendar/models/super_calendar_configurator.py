@@ -26,6 +26,9 @@
 #
 ##############################################################################
 
+from __future__ import division
+from builtins import str
+from past.utils import old_div
 import logging
 from datetime import datetime
 from pytz import timezone, utc
@@ -137,7 +140,7 @@ class SuperCalendarConfigurator(models.Model):
                         cur_rec[f_date_stop], date_format
                     )
                     date_diff = (date_stop - date_start)
-                    duration = date_diff.total_seconds() / 3600
+                    duration = old_div(date_diff.total_seconds(), 3600)
 
                 elif line.duration_field_id:
                     duration = cur_rec[f_duration]

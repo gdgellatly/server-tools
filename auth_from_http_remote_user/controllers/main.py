@@ -19,6 +19,7 @@
 #
 ##############################################################################
 
+from builtins import range
 from openerp import SUPERUSER_ID
 
 import openerp
@@ -94,9 +95,9 @@ class Home(main.Home):
                 res_users.write(cr, SUPERUSER_ID, [user_id], {'sso_key': key})
             request.session.authenticate(db_name, login=login,
                                          password=key, uid=user_id)
-        except http.AuthenticationError, e:
+        except http.AuthenticationError as e:
             raise e
-        except Exception, e:
+        except Exception as e:
             _logger.error("Error binding Http Remote User session",
                           exc_info=True)
             raise e
@@ -107,4 +108,4 @@ randrange = random.SystemRandom().randrange
 def randomString(length, chrs):
     """Produce a string of length random bytes, chosen from chrs."""
     n = len(chrs)
-    return ''.join([chrs[randrange(n)] for _ in xrange(length)])
+    return ''.join([chrs[randrange(n)] for _ in range(length)])

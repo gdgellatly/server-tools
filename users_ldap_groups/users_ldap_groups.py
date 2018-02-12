@@ -19,6 +19,7 @@
 #
 ##############################################################################
 
+from builtins import str
 from openerp import models
 from openerp import fields
 from openerp import api
@@ -40,7 +41,7 @@ class LDAPOperator(models.AbstractModel):
     def equals(self, ldap_entry, attribute, value, ldap_config, company,
                logger):
         return attribute in ldap_entry[1] and \
-            unicode(value) == unicode(ldap_entry[1][attribute])
+            str(value) == str(ldap_entry[1][attribute])
 
     def query(self, ldap_entry, attribute, value, ldap_config, company,
               logger):

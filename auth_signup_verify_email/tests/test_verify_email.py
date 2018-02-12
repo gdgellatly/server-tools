@@ -2,7 +2,10 @@
 # © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from urllib import urlencode
+from future import standard_library
+standard_library.install_aliases()
+from builtins import bytes
+from urllib.parse import urlencode
 from lxml.html import document_fromstring
 from openerp import _
 from openerp.tests.common import HttpCase

@@ -182,7 +182,7 @@ class BaseException(models.AbstractModel):
                       space,
                       mode='exec',
                       nocopy=True)  # nocopy allows to return 'result'
-        except Exception, e:
+        except Exception as e:
             raise UserError(
                 _('Error when evaluating the exception.rule '
                   'rule:\n %s \n(%s)') % (rule.name, e))

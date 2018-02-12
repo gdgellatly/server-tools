@@ -2,6 +2,7 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd. (support@serpentcs.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from builtins import str
 import ast
 
 from odoo.tests import common

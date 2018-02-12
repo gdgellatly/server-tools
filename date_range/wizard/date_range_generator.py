@@ -2,6 +2,7 @@
 # © 2016 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from builtins import str
 from odoo import api, fields, models
 from dateutil.rrule import (rrule,
                             YEARLY,
@@ -43,7 +44,7 @@ class DateRangeGenerator(models.TransientModel):
                      count=self.count+1)
         vals = list(vals)
         date_ranges = []
-        count_digits = len(unicode(self.count))
+        count_digits = len(str(self.count))
         for idx, dt_start in enumerate(vals[:-1]):
             date_start = fields.Date.to_string(dt_start.date())
             # always remove 1 day for the date_end since range limits are

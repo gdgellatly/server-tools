@@ -40,7 +40,7 @@ class fetchmail_server_folder(models.Model):
 
     def _get_match_algorithms_sel(self):
         algorithms = []
-        for cls in self._get_match_algorithms().itervalues():
+        for cls in self._get_match_algorithms().values():
             algorithms.append((cls.__name__, cls.name))
         algorithms.sort()
         return algorithms

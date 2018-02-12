@@ -26,6 +26,9 @@
 #
 ##############################################################################
 
+from __future__ import division
+from builtins import str
+from past.utils import old_div
 from openerp.tests import TransactionCase
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -112,7 +115,7 @@ class TestSuperCalendar(TransactionCase):
         self.super_calendar_configurator_line.write({
             'date_stop_field_id': self.date_stop_field.id,
         })
-        values_partner_a['duration'] = date_diff.total_seconds() / 3600
+        values_partner_a['duration'] = old_div(date_diff.total_seconds(), 3600)
         self.assertEqual(
             self.super_calendar_configurator._get_record_values_from_line(
                 self.super_calendar_configurator.line_ids[0]

@@ -2,6 +2,7 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
+from builtins import range
 import random
 import string
 
@@ -16,7 +17,7 @@ class Common(TransactionCase):
         """ Create a user for testing """
         user = self.env.ref('base.user_demo').copy()
         rand_name = ''.join([
-            random.choice(string.ascii_letters) for n in xrange(10)
+            random.choice(string.ascii_letters) for n in range(10)
         ])
         user.write({'login': rand_name})
         return user

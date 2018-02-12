@@ -19,6 +19,7 @@
 #
 ##############################################################################
 
+from builtins import str
 import sys
 from datetime import datetime
 from openerp.osv import orm, fields

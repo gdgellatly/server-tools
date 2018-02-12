@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from builtins import map
+from builtins import zip
 from odoo import api, models
 
 
@@ -20,7 +22,7 @@ class Base(models.AbstractModel):
         if self.env["base_import.match"]._usable_rules(self._name, fields):
             newdata = list()
             # Data conversion to ORM format
-            import_fields = map(models.fix_import_export_id_paths, fields)
+            import_fields = list(map(models.fix_import_export_id_paths, fields))
             converted_data = self._convert_records(
                 self._extract_records(import_fields, data))
             # Mock Odoo to believe the user is importing the ID field
@@ -30,7 +32,7 @@ class Base(models.AbstractModel):
             # Needed to match with converted data field names
             clean_fields = [f[0] for f in import_fields]
             for dbid, xmlid, record, info in converted_data:
-                row = dict(zip(clean_fields, data[info["record"]]))
+                row = dict(list(zip(clean_fields, data[info["record"]])))
                 match = self
                 if xmlid:
                     # Skip rows with ID, they do not need all this

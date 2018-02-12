@@ -2,6 +2,7 @@
 # Copyright 2015 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
+from builtins import map
 import operator
 
 from odoo import http
@@ -17,7 +18,7 @@ class PasswordSecuritySession(Session):
     @http.route()
     def change_password(self, fields):
         new_password = operator.itemgetter('new_password')(
-            dict(map(operator.itemgetter('name', 'value'), fields))
+            dict(list(map(operator.itemgetter('name', 'value'), fields)))
         )
         user_id = request.env.user
         user_id._check_password(new_password)

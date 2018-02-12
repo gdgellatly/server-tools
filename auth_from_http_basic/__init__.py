@@ -46,7 +46,7 @@ old_dispatch = JsonRequest.dispatch
 
 def dispatch(self, method):
     response = old_dispatch(self, method)
-    if method.im_func == web_main.Session.destroy.im_func:
+    if method.__func__ == web_main.Session.destroy.__func__:
         response.status = '301 logout'
         response.headers.add(
             'Location',

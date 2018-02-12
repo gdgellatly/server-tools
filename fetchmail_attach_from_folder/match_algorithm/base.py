@@ -21,6 +21,7 @@
 ##############################################################################
 
 
+from builtins import object
 class base(object):
     name = None
     '''Name shown to the user'''

@@ -19,6 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from builtins import str
 import logging
 import base64
 import simplejson
@@ -179,7 +180,7 @@ class fetchmail_server(models.Model):
             if this.attach and mail_message.get('attachments'):
                 for attachment in mail_message['attachments']:
                     fname, fcontent = attachment
-                    if isinstance(fcontent, unicode):
+                    if isinstance(fcontent, str):
                         fcontent = fcontent.encode('utf-8')
                     data_attach = {
                         'name': fname,
@@ -238,7 +239,7 @@ class fetchmail_server(models.Model):
             modifiers = {}
             docstr = ''
             for algorithm in self.pool['fetchmail.server.folder']\
-                    ._get_match_algorithms().itervalues():
+                    ._get_match_algorithms().values():
                 for modifier in ['required', 'readonly']:
                     for field in getattr(algorithm, modifier + '_fields'):
                         modifiers.setdefault(field, {})

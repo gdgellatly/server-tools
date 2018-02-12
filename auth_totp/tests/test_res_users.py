@@ -2,6 +2,7 @@
 # Copyright 2016-2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
+from builtins import range
 from datetime import datetime
 import mock
 import string
@@ -98,7 +99,7 @@ class TestResUsers(TransactionCase):
     def test_generate_mfa_login_token_token_field_random(self):
         '''Should set token field to new value each time'''
         test_tokens = set([])
-        for __ in xrange(3):
+        for __ in range(3):
             self.test_user.generate_mfa_login_token()
             test_tokens.add(self.test_user.mfa_login_token)
 

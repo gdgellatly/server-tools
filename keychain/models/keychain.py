@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2016 Akretion Mourad EL HADJ MIMOUNE, David BEAL, Raphaël REVERDY
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from builtins import str
 from functools import wraps
 
 import logging
@@ -159,7 +160,7 @@ class KeychainAccount(models.Model):
     def _decode_password(cls, data):
         cipher = cls._get_cipher()
         try:
-            return unicode(cipher.decrypt(str(data)), 'UTF-8')
+            return str(cipher.decrypt(str(data)), 'UTF-8')
         except InvalidToken:
             raise Warning(_(
                 "Password has been encrypted with a different "

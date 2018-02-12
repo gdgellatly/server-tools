@@ -2,6 +2,8 @@
 # Copyright 2015, 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
 # Copyright 2016 Tecnativa, S.L. - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from builtins import str
+from builtins import range
 import datetime
 from random import random
 from odoo.tests.common import TransactionCase
@@ -51,7 +53,7 @@ class FormatterCase(TransactionCase):
         self.assertEqual(
             self.expected,
             self.rl.datetime_formatter(
-                unicode(self.dt_str),
+                str(self.dt_str),
                 **self.kwargs))
 
         super(FormatterCase, self).tearDown()

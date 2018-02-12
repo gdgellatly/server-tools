@@ -2,6 +2,7 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd. (support@serpentcs.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from builtins import str
 from odoo import api, fields, models, _
 
 
@@ -43,7 +44,7 @@ class MassObject(models.Model):
             model_list = [self.model_id.id]
             active_model_obj = self.env[self.model_id.model]
             if active_model_obj._inherits:
-                keys = active_model_obj._inherits.keys()
+                keys = list(active_model_obj._inherits.keys())
                 inherits_model_list = model_obj.search([('model', 'in', keys)])
                 model_list.extend((inherits_model_list and
                                    inherits_model_list.ids or []))

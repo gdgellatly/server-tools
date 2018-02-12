@@ -3,6 +3,7 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd.
 # Copyright 2017 LasLabs Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 import logging
 
 from odoo import _, api, models
